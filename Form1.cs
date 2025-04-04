@@ -26,7 +26,8 @@ namespace ExcelToSqlImporter // Ensure this matches your project's namespace
         private void Form1_Load(object sender, EventArgs e)
         {
             // Load the last saved connection string
-            txtConnectionString.Text = ConfigurationManager.AppSettings["LastConnectionString"];
+            txtConnectionString.Text = ConfigurationManager.AppSettings["LastConnectionString"] ?? "Server=sad31;Database=seas;Encrypt=False;User ID=savanah;Password=alterlogin;Connect Timeout=2;";
+
             toolStripStatusLabel1.Text = "Ready"; // Reset status on load
         }
 

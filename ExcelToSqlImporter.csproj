@@ -18,7 +18,7 @@
 	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 	<GenerateDocumentationFile>true</GenerateDocumentationFile>
-	<OutputPath>bin\Release\net8.0-windows\</OutputPath>
+	<OutputPath>bin\Release\</OutputPath>
 	<SignAssembly>True</SignAssembly>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
