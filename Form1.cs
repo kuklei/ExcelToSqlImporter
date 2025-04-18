@@ -46,8 +46,8 @@ namespace ExcelToSqlImporter // Ensure this matches your project's namespace
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm";
-                openFileDialog.Title = "Select an Excel File";
+                openFileDialog.Filter = "Excel Files|*.xls;*.xlsx;*.csv";
+                openFileDialog.Title = "Select an Excel or CSV File";
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
@@ -134,10 +134,14 @@ namespace ExcelToSqlImporter // Ensure this matches your project's namespace
                     toolStripStatusLabel1.Text = "Connected to SQL Server. Preparing table...";
                     Application.DoEvents();
 
-                    DropTableIfExists(connection, tableName);
-                    CreateTableFromDataTable(connection, tableName, excelData);
-                    toolStripStatusLabel1.Text = $"Table '{tableName}' created. Starting bulk import...";
-                    Application.DoEvents();
+                    if (chkDropIfExists.Checked)
+                    {
+                        DropTableIfExists(connection, tableName);
+                        CreateTableFromDataTable(connection, tableName, excelData);
+                        toolStripStatusLabel1.Text = $"Table '{tableName}' created. Starting bulk import...";
+                        Application.DoEvents();
+                    }
+
 
                     BulkInsertData(connection, tableName, excelData);
 
@@ -175,6 +179,13 @@ namespace ExcelToSqlImporter // Ensure this matches your project's namespace
 
         private DataTable ReadExcelFile(string filePath)
         {
+            string fileExtension = Path.GetExtension(filePath).ToLower();
+
+            if (fileExtension == ".csv")
+            {
+                return ReadCsvFile(filePath);
+            }
+
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
             using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
             {
@@ -189,6 +200,35 @@ namespace ExcelToSqlImporter // Ensure this matches your project's namespace
                 }
             }
             return null;
+        }
+
+        private DataTable ReadCsvFile(string filePath)
+        {
+            DataTable dataTable = new DataTable();
+            using (var reader = new StreamReader(filePath))
+            {
+                string? line;
+                bool isHeader = true;
+
+                while ((line = reader.ReadLine()) != null)
+                {
+                    var values = line.Split(',');
+
+                    if (isHeader)
+                    {
+                        foreach (var header in values)
+                        {
+                            dataTable.Columns.Add(header);
+                        }
+                        isHeader = false;
+                    }
+                    else
+                    {
+                        dataTable.Rows.Add(values);
+                    }
+                }
+            }
+            return dataTable;
         }
 
         private void DropTableIfExists(SqlConnection connection, string tableName)

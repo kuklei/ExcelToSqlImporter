@@ -40,6 +40,7 @@
             toolStripStatusLabel1 = new ToolStripStatusLabel();
             label3 = new Label();
             btnCheckConnection = new Button();
+            chkDropIfExists = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)dataGridViewResults).BeginInit();
             statusStrip1.SuspendLayout();
             SuspendLayout();
@@ -79,7 +80,7 @@
             txtTableName.Location = new Point(183, 44);
             txtTableName.Margin = new Padding(4, 3, 4, 3);
             txtTableName.Name = "txtTableName";
-            txtTableName.Size = new Size(631, 23);
+            txtTableName.Size = new Size(262, 23);
             txtTableName.TabIndex = 3;
             // 
             // btnBrowse
@@ -166,11 +167,22 @@
             btnCheckConnection.UseVisualStyleBackColor = true;
             btnCheckConnection.Click += btnCheckConnection_Click;
             // 
+            // chkDropIfExists
+            // 
+            chkDropIfExists.AutoSize = true;
+            chkDropIfExists.Location = new Point(452, 48);
+            chkDropIfExists.Name = "chkDropIfExists";
+            chkDropIfExists.Size = new Size(94, 19);
+            chkDropIfExists.TabIndex = 11;
+            chkDropIfExists.Text = "Drop if exists";
+            chkDropIfExists.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(915, 532);
+            Controls.Add(chkDropIfExists);
             Controls.Add(btnCheckConnection);
             Controls.Add(label3);
             Controls.Add(statusStrip1);
@@ -208,5 +220,6 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.Label label3;
         private Button btnCheckConnection;
+        private CheckBox chkDropIfExists;
     }
 }
