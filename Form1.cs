@@ -142,6 +142,27 @@ namespace ExcelToSqlImporter // Ensure this matches your project's namespace
                         Application.DoEvents();
                     }
 
+                    // add check if table exists
+                    else
+                    {
+                        // Check if table exists
+                        string checkTableSql = $"SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '{tableName.Replace("]", "]]")}'";
+                        using (SqlCommand checkCommand = new SqlCommand(checkTableSql, connection))
+                        {
+                            int tableCount = (int)checkCommand.ExecuteScalar();
+                            if (tableCount == 0)
+                            {
+                                CreateTableFromDataTable(connection, tableName, excelData);
+                                toolStripStatusLabel1.Text = $"Table '{tableName}' created. Starting bulk import...";
+                                Application.DoEvents();
+                            }
+                            else
+                            {
+                                toolStripStatusLabel1.Text = $"Table '{tableName}' exists. Starting bulk import...";
+                                Application.DoEvents();
+                            }
+                        }
+                    }
 
                     BulkInsertData(connection, tableName, excelData);
 

@@ -172,9 +172,9 @@
             chkDropIfExists.AutoSize = true;
             chkDropIfExists.Location = new Point(452, 48);
             chkDropIfExists.Name = "chkDropIfExists";
-            chkDropIfExists.Size = new Size(94, 19);
+            chkDropIfExists.Size = new Size(173, 19);
             chkDropIfExists.TabIndex = 11;
-            chkDropIfExists.Text = "Drop if exists";
+            chkDropIfExists.Text = "Create Table (drops if exists)";
             chkDropIfExists.UseVisualStyleBackColor = true;
             // 
             // Form1
