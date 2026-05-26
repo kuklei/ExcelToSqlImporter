@@ -16,6 +16,7 @@ ExcelToSqlImporter is a .NET 8 application that allows users to import data from
 1. Launch the application.
 2. Click the "Browse" button to select an Excel file.
 3. Enter the SQL Server connection string.
+   - Example: Server=sad.ivaelektronik.com, 4433;Database=bm;User Id=savanah;Password=cantlogin;TrustServerCertificate=True;
 4. Enter the destination table name.
 5. Click the "Import" button to import data into the specified SQL table.
 6. Optionally, click the "Check Connection" button to verify the SQL Server connection.
